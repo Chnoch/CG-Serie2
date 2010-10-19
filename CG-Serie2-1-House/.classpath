@@ -3,8 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/j3d"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jogl"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Java3D"/>
-	<classpathentry kind="lib" path="/CG-Serie2-jrtr/bin"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/jogl"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Java3D"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/J3d"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jogl"/>
+	<classpathentry exported="true" kind="lib" path="/CG-Serie2-jrtr/bin"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

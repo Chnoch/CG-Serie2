@@ -83,6 +83,33 @@ public class simple
 	 */
 	public static void main(String[] args)
 	{		
+		int n=3;
+		int num = (int) (Math.pow(2, n)+1);
+		float fractal[] = new float[num*num*3];
+		
+		// init dots of fractal
+		int x=0;
+		int y=0;
+		for (int i=0; i<num; i++) {
+			for (int j=0;j<num; j+=3) {
+				fractal[i+j]=x;
+				fractal[i+j+1]=y;
+				fractal[i+j+2]=0;
+				y++;
+			}
+			x++;
+		}
+		
+		// create triangles 
+		int indices[] = new int[(2*num-2)*(num-1)];
+		
+		for (int i=0;i<num;i++) {
+			indices[i]=
+		}
+		
+		
+		
+		
 		// Make a simple geometric object: a cube
 		
 		// The vertex positions of the cube
@@ -108,12 +135,12 @@ public class simple
 		vertexData.addElement(v, VertexData.Semantic.POSITION, 3);
 		
 		// The triangles (three vertex indices for each triangle)
-		int indices[] = {0,2,3, 0,1,2,			// front face
-						 4,6,7, 4,5,6,			// left face
-						 8,10,11, 8,9,10,		// back face
-						 12,14,15, 12,13,14,	// right face
-						 16,18,19, 16,17,18,	// top face
-						 20,22,23, 20,21,22};	// bottom face
+//		int indices[] = {0,2,3, 0,1,2,			// front face
+//						 4,6,7, 4,5,6,			// left face
+//						 8,10,11, 8,9,10,		// back face
+//						 12,14,15, 12,13,14,	// right face
+//						 16,18,19, 16,17,18,	// top face
+//						 20,22,23, 20,21,22};	// bottom face
 
 		vertexData.addIndices(indices);
 				
