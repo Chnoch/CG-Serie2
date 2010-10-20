@@ -90,24 +90,24 @@ public class simple
 		Camera camera = sceneManager.getCamera();
 		Frustum frustum = sceneManager.getFrustum();
 		
-		camera.setCenterOfProjection(new Vector3f(0,0,10));
-		camera.setLookAtPoint(new Vector3f(0,0,0));
-		camera.setUpVector(new Vector3f(0,1,0));
-		frustum.setAspectRatio(1);
-		frustum.setFarPlane(100);
-		frustum.setNearPlane(1);
-		frustum.setVertFOV(60);
+//		camera.setCenterOfProjection(new Vector3f(0,0,10));
+//		camera.setLookAtPoint(new Vector3f(0,0,0));
+//		camera.setUpVector(new Vector3f(0,1,0));
+//		frustum.setAspectRatio(1);
+//		frustum.setFarPlane(100);
+//		frustum.setNearPlane(1);
+//		frustum.setVertFOV(60);
 		
-//		camera.setCenterOfProjection(new Vector3f(-10,40,40));
-//        camera.setLookAtPoint(new Vector3f(-5,0,0));
-//        camera.setUpVector(new Vector3f(0,1,0));
-//        frustum.setAspectRatio(1);
-//        frustum.setFarPlane(100);
-//        frustum.setNearPlane(1);
-//        frustum.setVertFOV(60);
+		camera.setCenterOfProjection(new Vector3f(-10,40,40));
+        camera.setLookAtPoint(new Vector3f(-5,0,0));
+        camera.setUpVector(new Vector3f(0,1,0));
+        frustum.setAspectRatio(1);
+        frustum.setFarPlane(100);
+        frustum.setNearPlane(1);
+        frustum.setVertFOV(60);
 
 		// Make a render panel. The init function of the renderPanel
-		// (see above) will be called back for initialization.
+		// (see above) will be ca lled back for initialization.
 		renderPanel = new SimpleRenderPanel();
 		
 		// Make the main window of this application and add the renderer to it
