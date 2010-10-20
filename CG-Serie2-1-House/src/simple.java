@@ -90,21 +90,8 @@ public class simple
 		Camera camera = sceneManager.getCamera();
 		Frustum frustum = sceneManager.getFrustum();
 		
-//		camera.setCenterOfProjection(new Vector3f(0,0,10));
-//		camera.setLookAtPoint(new Vector3f(0,0,0));
-//		camera.setUpVector(new Vector3f(0,1,0));
-//		frustum.setAspectRatio(1);
-//		frustum.setFarPlane(100);
-//		frustum.setNearPlane(1);
-//		frustum.setVertFOV(60);
-		
-		camera.setCenterOfProjection(new Vector3f(-10,40,40));
-        camera.setLookAtPoint(new Vector3f(-5,0,0));
-        camera.setUpVector(new Vector3f(0,1,0));
-        frustum.setAspectRatio(1);
-        frustum.setFarPlane(100);
-        frustum.setNearPlane(1);
-        frustum.setVertFOV(60);
+		camera1(camera, frustum);
+//		camera2(camera, frustum);
 
 		// Make a render panel. The init function of the renderPanel
 		// (see above) will be ca lled back for initialization.
@@ -122,6 +109,26 @@ public class simple
 	    jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    jframe.setVisible(true); // show window
 	}
+
+    private static void camera1(Camera camera, Frustum frustum) {
+        camera.setCenterOfProjection(new Vector3f(0,0,10));
+		camera.setLookAtPoint(new Vector3f(0,0,0));
+		camera.setUpVector(new Vector3f(0,1,0));
+		frustum.setAspectRatio(1);
+		frustum.setFarPlane(100);
+		frustum.setNearPlane(1);
+		frustum.setVertFOV(60);
+    }
+
+    private static void camera2(Camera camera, Frustum frustum) {
+        camera.setCenterOfProjection(new Vector3f(-10,40,40));
+        camera.setLookAtPoint(new Vector3f(-5,0,0));
+        camera.setUpVector(new Vector3f(0,1,0));
+        frustum.setAspectRatio(1);
+        frustum.setFarPlane(100);
+        frustum.setNearPlane(1);
+        frustum.setVertFOV(60);
+    }
 	
 	   public static Shape makeHouse()
 	    {

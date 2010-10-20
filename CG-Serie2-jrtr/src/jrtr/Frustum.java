@@ -23,11 +23,6 @@ public class Frustum {
      */
     public Frustum() {
         projectionMatrix = new Matrix4f();
-        float f[] = {   0.f, 0.f, 0.f, 0.f, 
-                        0.f, 0.f, 0.f, 0.f, 
-                        0.f, 0.f, 0.f, 0.f, 
-                        0.f, 0.f, 0.f, 0.f };
-        projectionMatrix.set(f);
         // Aspect Ratio is 1 on init
         this.aspectRatio = 1;
         // some calculations done on the formula
@@ -91,10 +86,10 @@ public class Frustum {
         this.projectionMatrix.setM11(-temp);
         temp = (nearPlane + farPlane)
         / (nearPlane - farPlane);
-        this.projectionMatrix.setM22(temp);
+        this.projectionMatrix.setM22(-temp);
         temp = (2 * nearPlane * farPlane)
         / (nearPlane - farPlane);
-        this.projectionMatrix.setM23(temp);
+        this.projectionMatrix.setM23(-temp);
         this.projectionMatrix.setM32(-1);
     }
 }

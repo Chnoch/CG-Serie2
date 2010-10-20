@@ -3,8 +3,6 @@ import javax.swing.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.vecmath.*;
-
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -51,18 +49,18 @@ public class simple
 	{
 		public void run()
 		{
-//			// Update transformation
-//    		Matrix4f t = shape.getTransformation();
-//    		Matrix4f rotX = new Matrix4f();
-//    		rotX.rotX(angle);
-//    		Matrix4f rotY = new Matrix4f();
-//    		rotY.rotY(angle);
-////    		t.mul(rotX);
-//    		t.mul(rotY);
-//    		shape.setTransformation(t);
-//    		
-//    		// Trigger redrawing of the render window
-//    		renderPanel.getCanvas().repaint(); 
+			// Update transformation
+    		Matrix4f t = shape.getTransformation();
+    		Matrix4f rotX = new Matrix4f();
+    		rotX.rotX(angle);
+    		Matrix4f rotY = new Matrix4f();
+    		rotY.rotY(angle);
+    		t.mul(rotX);
+    		t.mul(rotY);
+    		shape.setTransformation(t);
+    		
+    		// Trigger redrawing of the render window
+    		renderPanel.getCanvas().repaint(); 
 		}
 	}
 
@@ -85,30 +83,25 @@ public class simple
 	 */
 	public static void main(String[] args)
 	{		
-	    
 		int n=3;
-		int num = 513;
+		int num = (int) (Math.pow(2, n)+1);
 		float fractal[] = new float[num*num*3];
 		
-		
-		Random ran = new Random();
 		// init dots of fractal
 		int x=0;
 		int y=0;
-		int count = 0;
-		for (int i=0; i<num*3; i+=num) {
-			for (int j=0;j<num*3; j+=num) {
-				fractal[count++]=x;
-				fractal[count++]=y;
-				fractal[count++]=0;
+		for (int i=0; i<num; i++) {
+			for (int j=0;j<num; j+=3) {
+				fractal[i+j]=x;
+				fractal[i+j+1]=y;
+				fractal[i+j+2]=0;
 				y++;
 			}
 			x++;
-			y=0;
 		}
 		
 		// create triangles 
-		int indices[] = new int[(2*num-2)*(num-1)*3];
+		int indices[] = new int[(2*num-2)*(num-1)];
 		
 		int m=0;
 		for (int i=0;i<indices.length;i+=6) {
@@ -129,32 +122,37 @@ public class simple
 		
 		
 		
+		// Make a simple geometric object: a cube
 		
-				// The vertex colors
-		float c[] = new float[fractal.length];
-		
-		boolean black=true;
-		for (int i=0;i<c.length-1;i+=3) {
-			if (black) {
-				c[i] = 0;
-				c[i+1]=0;
-				c[i+2]=0;
-			} else {
-				c[i] = 1;
-				c[i+1]=1;
-				c[i+2]=1;
-			}
-			black = !black;
-			
-		}
-	    
-//	    fractalTerrain(513,1); 
+		// The vertex positions of the cube
+		float v[] = {-1,-1,0, 1,-1,0, 1,1,0, -1,1,0,		// front face
+			         -1,-1,-1, -1,-1,1, -1,1,1, -1,1,-1,	// left face
+				  	 1,-1,-1,-1,-1,-1, -1,1,-1, 1,1,-1,		// back face
+					 1,-1,1, 1,-1,-1, 1,1,-1, 1,1,1,		// right face
+					 1,1,1, 1,1,-1, -1,1,-1, -1,1,1,		// top face
+					-1,-1,1, -1,-1,-1, 1,-1,-1, 1,-1,1};	// bottom face
+
+		// The vertex colors
+		float c[] = {1,0,0, 1,0,0, 1,0,0, 1,0,0,
+				     0,1,0, 0,1,0, 0,1,0, 0,1,0,
+					 1,0,0, 1,0,0, 1,0,0, 1,0,0,
+					 0,1,0, 0,1,0, 0,1,0, 0,1,0,
+					 0,0,1, 0,0,1, 0,0,1, 0,0,1,
+					 0,0,1, 0,0,1, 0,0,1, 0,0,1};
 
 		// Construct a data structure that stores the vertices, their
 		// attributes, and the triangle mesh connectivity
-		VertexData vertexData = new VertexData(fractal.length/3);
-//		vertexData.addElement(c, VertexData.Semantic.COLOR, 3);
-		vertexData.addElement(fractal, VertexData.Semantic.POSITION, 3);
+		VertexData vertexData = new VertexData(24);
+		vertexData.addElement(c, VertexData.Semantic.COLOR, 3);
+		vertexData.addElement(v, VertexData.Semantic.POSITION, 3);
+		
+		// The triangles (three vertex indices for each triangle)
+//		int indices[] = {0,2,3, 0,1,2,			// front face
+//						 4,6,7, 4,5,6,			// left face
+//						 8,10,11, 8,9,10,		// back face
+//						 12,14,15, 12,13,14,	// right face
+//						 16,18,19, 16,17,18,	// top face
+//						 20,22,23, 20,21,22};	// bottom face
 
 		vertexData.addIndices(indices);
 				
@@ -179,82 +177,4 @@ public class simple
 	    jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    jframe.setVisible(true); // show window
 	}
-	
-	
-	    private float[][] terrain;
-	    private double roughness, min, max;
-	    private int divisions;
-	    private Random rng;
-	    
-	    public void fractalTerrain (int lod, double roughness) {
-	      this.roughness = roughness;
-	      this.divisions = 1 << lod;
-	      terrain = new float[divisions + 1][divisions + 1];
-	      rng = new Random ();
-	      terrain[0][0] = rnd ();
-	      terrain[0][divisions] = rnd ();
-	      terrain[divisions][divisions] = rnd ();
-	      terrain[divisions][0] = rnd ();
-	      double rough = roughness;
-	      for (int i = 0; i < lod; ++ i) {
-	        int q = 1 << i, r = 1 << (lod - i), s = r >> 1;
-	        for (int j = 0; j < divisions; j += r)
-	          for (int k = 0; k < divisions; k += r)
-	            diamond (j, k, r, rough);
-	        if (s > 0)
-	          for (int j = 0; j <= divisions; j += s)
-	            for (int k = (j + s) % r; k <= divisions; k += r)
-	              square (j - s, k - s, r, rough);
-	        rough *= roughness;
-	      }
-	      min = max = terrain[0][0];
-	      for (int i = 0; i <= divisions; ++ i) {
-	        for (int j = 0; j <= divisions; ++ j) {
-	          if (terrain[i][j] < min) min = terrain[i][j];
-	          else if (terrain[i][j] > max) max = terrain[i][j];
-	        }
-	      }
-	    }
-	    
-	    private void diamond (int x, int y, int side, double scale) {
-	      if (side > 1) {
-	        int half = side / 2;
-	        double avg = (terrain[x][y] + terrain[x + side][y] +
-	          terrain[x + side][y + side] + terrain[x][y + side]) * 0.25;
-	        terrain[x + half][y + half] = (float) (avg + rnd () * scale);
-	      }
-	    }
-	    
-	    private void square (int x, int y, int side, double scale) {
-	      int half = side / 2;
-	      double avg = 0.0, sum = 0.0;
-	      if (x >= 0)
-	      { avg += terrain[x][y + half]; sum += 1.0; }
-	      if (y >= 0)
-	      { avg += terrain[x + half][y]; sum += 1.0; }
-	      if (x + side <= divisions)
-	      { avg += terrain[x + side][y + half]; sum += 1.0; }
-	      if (y + side <= divisions)
-	      { avg += terrain[x + half][y + side]; sum += 1.0; }
-	      terrain[x + half][y + half] = (float) (avg / sum + rnd () * scale);
-	    }
-	    
-	    private float rnd () {
-	      return (2.f * rng.nextFloat() - 1.0f);
-	    }
-	    public double getAltitude (double i, double j) {
-	      double alt = terrain[(int) (i * divisions)][(int) (j * divisions)];
-	      return (alt - min) / (max - min);
-	    }
-//	    private RGB blue = new RGB (0.0, 0.0, 1.0);
-//	    private RGB green = new RGB (0.0, 1.0, 0.0);
-//	    private RGB white = new RGB (1.0, 1.0, 1.0);
-//	    public RGB getColor (double i, double j) {
-//	      double a = getAltitude (i, j);
-//	      if (a < .5)
-//	        return blue.add (green.subtract (blue).scale ((a - 0.0) / 0.5));
-//	      else
-//	        return green.add (white.subtract (green).scale ((a - 0.5) / 0.5));
-//	    }
-//	  }
 }
