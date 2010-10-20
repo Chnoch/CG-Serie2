@@ -17,9 +17,9 @@ public class GLTexture implements Texture {
 	private IntBuffer id;	// Stores the OpenGL texture identifier
 	private int w, h;		// Width and height
 	
-	public GLTexture(GL gl)
+	public GLTexture(GL g)
 	{
-		this.gl = gl;
+		this.gl = g;
 		id = IntBuffer.allocate(1);	// Make the buffer that will store the texture identifier
 	}
 

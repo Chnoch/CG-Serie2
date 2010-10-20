@@ -17,9 +17,9 @@ public class GLShader implements Shader {
 	private GL2 gl;	// The OpenGL context
 	private int p;	// The shader identifier
 	
-	public GLShader(GL2 gl)
+	public GLShader(GL2 g)
 	{
-		this.gl = gl;
+		this.gl = g;
 	}
 	
 	/**
