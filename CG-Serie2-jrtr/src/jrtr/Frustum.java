@@ -23,10 +23,10 @@ public class Frustum {
      */
     public Frustum() {
         projectionMatrix = new Matrix4f();
-        float f[] = {   2.f, 0.f, 0.f, 0.f, 
-                        0.f, 2.f,0.f, 0.f, 
-                        0.f, 0.f, -1.02f, -2.02f, 
-                        0.f, 0.f, -1.f, 0.f };
+        float f[] = {   0.f, 0.f, 0.f, 0.f, 
+                        0.f, 0.f, 0.f, 0.f, 
+                        0.f, 0.f, 0.f, 0.f, 
+                        0.f, 0.f, 0.f, 0.f };
         projectionMatrix.set(f);
         // Aspect Ratio is 1 on init
         this.aspectRatio = 1;
@@ -35,6 +35,7 @@ public class Frustum {
         // some calcs as well
         this.nearPlane = 1;
         this.farPlane = 100;
+        this.updateFrustum();
     }
 
     /**
@@ -83,12 +84,17 @@ public class Frustum {
     }
 
     private void updateFrustum() {
-        this.projectionMatrix.setM00((float) (1 / (aspectRatio * Math
-                .tan(vertFOV / 2))));
-        this.projectionMatrix.setM11((float) (1 / Math.tan(vertFOV / 2)));
-        this.projectionMatrix.setM32((nearPlane + farPlane)
-                / (nearPlane - farPlane));
-        this.projectionMatrix.setM33((2 * nearPlane * farPlane)
-                / (nearPlane - farPlane));
+    	float temp = (float) (1 / 
+    			(aspectRatio * Math.tan(vertFOV / 2) ));
+        this.projectionMatrix.setM00(temp);
+        temp = (float) (1 / Math.tan(vertFOV / 2));
+        this.projectionMatrix.setM11(temp);
+        temp = (nearPlane + farPlane)
+        / (nearPlane - farPlane);
+        this.projectionMatrix.setM22(temp);
+        temp = (2 * nearPlane * farPlane)
+        / (nearPlane - farPlane);
+        this.projectionMatrix.setM23(temp);
+        this.projectionMatrix.setM32(-1);
     }
 }

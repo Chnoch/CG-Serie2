@@ -17,6 +17,7 @@ public class simple
 	static SimpleSceneManager sceneManager;
 	static Shape shape;
 	static float angle;
+	
 
 	/**
 	 * An extension of {@link GLRenderPanel} or {@link SWRenderPanel} to 
@@ -50,17 +51,17 @@ public class simple
 		public void run()
 		{
 			// Update transformation
-    		Matrix4f t = shape.getTransformation();
-    		Matrix4f rotX = new Matrix4f();
-    		rotX.rotX(angle);
-    		Matrix4f rotY = new Matrix4f();
-    		rotY.rotY(angle);
-    		t.mul(rotX);
-    		t.mul(rotY);
-    		shape.setTransformation(t);
-    		
-    		// Trigger redrawing of the render window
-    		renderPanel.getCanvas().repaint(); 
+//    		Matrix4f t = shape.getTransformation();
+//    		Matrix4f rotX = new Matrix4f();
+//    		rotX.rotX(angle);
+//    		Matrix4f rotY = new Matrix4f();
+//    		rotY.rotY(angle);
+//    		t.mul(rotX);
+//    		t.mul(rotY);
+//    		shape.setTransformation(t);
+//    		
+//    		// Trigger redrawing of the render window
+//    		renderPanel.getCanvas().repaint(); 
 		}
 	}
 
@@ -88,21 +89,22 @@ public class simple
 		sceneManager.addShape(shape);
 		Camera camera = sceneManager.getCamera();
 		Frustum frustum = sceneManager.getFrustum();
-//		camera.setCenterOfProjection(new Vector3f(0,0,40));
-//		camera.setLookAtPoint(new Vector3f(0,0,0));
-//		camera.setUpVector(new Vector3f(0,1,0));
-//		frustum.setAspectRatio(1);
-//		frustum.setFarPlane(100);
-//		frustum.setNearPlane(1);
-//		frustum.setVertFOV(60);
 		
-		camera.setCenterOfProjection(new Vector3f(-10,-10,40));
-        camera.setLookAtPoint(new Vector3f(-5,0,0));
-        camera.setUpVector(new Vector3f(0,1,0));
-        frustum.setAspectRatio(1);
-        frustum.setFarPlane(100);
-        frustum.setNearPlane(1);
-        frustum.setVertFOV(60);
+		camera.setCenterOfProjection(new Vector3f(0,0,10));
+		camera.setLookAtPoint(new Vector3f(0,0,0));
+		camera.setUpVector(new Vector3f(0,1,0));
+		frustum.setAspectRatio(1);
+		frustum.setFarPlane(100);
+		frustum.setNearPlane(1);
+		frustum.setVertFOV(60);
+		
+//		camera.setCenterOfProjection(new Vector3f(-10,40,40));
+//        camera.setLookAtPoint(new Vector3f(-5,0,0));
+//        camera.setUpVector(new Vector3f(0,1,0));
+//        frustum.setAspectRatio(1);
+//        frustum.setFarPlane(100);
+//        frustum.setNearPlane(1);
+//        frustum.setVertFOV(60);
 
 		// Make a render panel. The init function of the renderPanel
 		// (see above) will be called back for initialization.
