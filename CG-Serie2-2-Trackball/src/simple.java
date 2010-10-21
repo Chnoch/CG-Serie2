@@ -1,5 +1,8 @@
 import jrtr.*;
+
 import javax.swing.*;
+import javax.vecmath.Vector3f;
+
 import java.io.IOException;
 
 /**
@@ -56,10 +59,11 @@ public class simple
 		
 		Trackball trackball = new Trackball(shape);
 		
-
 		// Make a render panel. The init function of the renderPanel
 		// (see above) will be called back for initialization.
 		renderPanel = new SimpleRenderPanel();
+		
+		sceneManager.getCamera().setCenterOfProjection(new Vector3f(0,0,1));
 		
 		// Make the main window of this application and add the renderer to it
 		JFrame jframe = new JFrame("simple");

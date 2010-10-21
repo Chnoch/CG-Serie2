@@ -22,16 +22,11 @@ public class Camera {
 	 * of world space, i.e., towards the negative z-axis.
 	 */
 	public Camera() {
-		centerOfProjection = new Vector3f(0, 0, 1);
+		centerOfProjection = new Vector3f(0, 0, 10);
 		lookAtPoint = new Vector3f(0, 0, 0);
 		upVector = new Vector3f(0, 1, 0);
 		cameraMatrix = new Matrix4f();
 		this.updateCamera();
-		// float f[] = {1.f, 0.f, 0.f, 0.f,
-		// 0.f, 1.f, 0.f, 0.f,
-		// 0.f, 0.f, 1.f, -10.f,
-		// 0.f, 0.f, 0.f, 1.f};
-		// cameraMatrix.set(f);
 	}
 
 	/**

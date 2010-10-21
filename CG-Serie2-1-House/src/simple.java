@@ -111,7 +111,7 @@ public class simple
 	}
 
     private static void camera1(Camera camera, Frustum frustum) {
-        camera.setCenterOfProjection(new Vector3f(0,0,10));
+        camera.setCenterOfProjection(new Vector3f(0,0,40));
 		camera.setLookAtPoint(new Vector3f(0,0,0));
 		camera.setUpVector(new Vector3f(0,1,0));
 		frustum.setAspectRatio(1);

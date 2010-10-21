@@ -44,7 +44,7 @@ public class Trackball extends MouseAdapter implements MouseMotionListener {
     }
 
     // deal with Mouse events
-    final static int EPS2 = 25; // only spin if mouse moved this far
+    final static int EPS2 = 5; // only spin if mouse moved this far
 
     public void mouseReleased(MouseEvent evt) {
         int dx = startX - evt.getX();
@@ -82,26 +82,14 @@ public class Trackball extends MouseAdapter implements MouseMotionListener {
     private void updateTransformation() {
         Matrix4f t = shape.getTransformation();
         Matrix4f temp = this.getRotMatrix();
-        t.mul(temp);
-        shape.setTransformation(t);
+        temp.mul(t);
+        shape.setTransformation(temp);
         this.component.repaint();
     }
 
-    /*
-     * Ok, simulate a track-ball.  Project the points onto the virtual
-     * trackball, then figure out the axis of rotation, which is the cross
-     * product of P1 P2 and O P1 (O is the center of the ball, 0,0,0)
-     * Note:  This is a deformed trackball-- is a trackball in the center,
-     * but is deformed into a hyperbolic sheet of rotation away from the
-     * center.  This particular function was chosen after trying out
-     * several variations.
-     *
-     * It is assumed that the arguments to this routine are in the range
-     * (-1.0 ... 1.0)
-     */
     public Quat4f buildQuaternion(float p1x, float p1y, float p2x, float p2y) {
-        Vector3f a = new Vector3f(); /* Axis of rotation */
-        float phi; /* how much to rotate about axis */
+        Vector3f a = new Vector3f(); // Axis of rotation
+        float phi; // rotation angle
         Vector3f p1 = new Vector3f();
         Vector3f p2 = new Vector3f();
         Vector3f d = new Vector3f();
@@ -113,27 +101,17 @@ public class Trackball extends MouseAdapter implements MouseMotionListener {
             return new Quat4f(q);
         }
 
-        /*
-         * First, figure out z-coordinates for projection of P1 and P2 to
-         * deformed sphere
-         */
+       
         p1.set(p1x, p1y, projectToSphere(trackballSize, p1x, p1y));
         p2.set(p2x, p2y, projectToSphere(trackballSize, p2x, p2y));
 
-        /*
-         *  Now, we want the cross product of P1 and P2
-         */
+       
         a.cross(p1, p2);
 
-        /*
-         *  Figure out how much to rotate around that axis.
-         */
         d.sub(p1, p2);
         t = d.length() / (2.0f * trackballSize);
 
-        /*
-         * Avoid problems with out-of-control values...
-         */
+       
         if (t > 1.0)
             t = 1.0f;
         if (t < -1.0)
@@ -143,9 +121,7 @@ public class Trackball extends MouseAdapter implements MouseMotionListener {
         return axisToQuat(a, phi);
     }
 
-    /**
-     * Create a unit quaternion that represents the rotation about axis by theta
-     */
+ 
     public Quat4f axisToQuat(Vector3f axis, float theta) {
         Quat4f axisVec = new Quat4f();
         Vector4f temp = new Vector4f(axis);
@@ -157,11 +133,6 @@ public class Trackball extends MouseAdapter implements MouseMotionListener {
         axisVec.scale((float) Math.sin(theta / 2.0));
         return axisVec;
     }
-
-    /**
-     * Project an x,y pair onto a sphere of radius r OR a hyperbolic sheet if we
-     * are away from the center of the sphere.
-     */
 
     public float projectToSphere(float r, float x, float y) {
         float z;
@@ -175,10 +146,7 @@ public class Trackball extends MouseAdapter implements MouseMotionListener {
         return z;
     }
 
-    /*
-     * Build a rotation matrix, given a quaternion rotation.
-     *
-     */
+
     public Matrix4f buildMatrix(Quat4f q) {
         float[] mat = new float[16];
 

@@ -79,17 +79,33 @@ public class Frustum {
     }
 
     private void updateFrustum() {
+        final float DEG2RAD = 3.14159265f / 180;
     	float temp = (float) (1 / 
-    			(aspectRatio * Math.tan(vertFOV / 2) ));
+    			(aspectRatio * Math.tan(vertFOV / 2)));
         this.projectionMatrix.setM00(-temp);
         temp = (float) (1 / Math.tan(vertFOV / 2));
         this.projectionMatrix.setM11(-temp);
         temp = (nearPlane + farPlane)
         / (nearPlane - farPlane);
-        this.projectionMatrix.setM22(-temp);
+        this.projectionMatrix.setM22(temp);
         temp = (2 * nearPlane * farPlane)
         / (nearPlane - farPlane);
-        this.projectionMatrix.setM23(-temp);
+        this.projectionMatrix.setM23(temp);
+        this.projectionMatrix.setM32(-1);
+    }
+    
+    private void makeFrustum()
+    {
+        final float DEG2RAD = 3.14159265f / 180;
+
+        float tangent = (float) Math.tan(this.vertFOV/2 * DEG2RAD);   // tangent of half fovY
+        float height = this.nearPlane * tangent;          // half height of near plane
+        float width = this.farPlane * aspectRatio;      // half width of near plane
+
+        this.projectionMatrix.setM00(2*this.nearPlane/width);
+        this.projectionMatrix.setM11(2*this.farPlane/height);
+        this.projectionMatrix.setM22(-(this.farPlane+this.nearPlane)/(this.farPlane-this.nearPlane));
+        this.projectionMatrix.setM23(-(2*this.farPlane*this.nearPlane)/(this.farPlane-this.nearPlane));
         this.projectionMatrix.setM32(-1);
     }
 }
