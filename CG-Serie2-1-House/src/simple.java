@@ -90,8 +90,8 @@ public class simple
 		Camera camera = sceneManager.getCamera();
 		Frustum frustum = sceneManager.getFrustum();
 		
-		camera1(camera, frustum);
-//		camera2(camera, frustum);
+//		camera1(camera, frustum);
+		camera2(camera, frustum);
 
 		// Make a render panel. The init function of the renderPanel
 		// (see above) will be ca lled back for initialization.

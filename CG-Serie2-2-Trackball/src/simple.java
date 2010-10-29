@@ -63,7 +63,7 @@ public class simple
 		// (see above) will be called back for initialization.
 		renderPanel = new SimpleRenderPanel();
 		
-		sceneManager.getCamera().setCenterOfProjection(new Vector3f(0,0,1));
+		sceneManager.getCamera().setCenterOfProjection(new Vector3f(0,0,10));
 		
 		// Make the main window of this application and add the renderer to it
 		JFrame jframe = new JFrame("simple");

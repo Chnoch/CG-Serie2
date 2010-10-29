@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.vecmath.*;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,7 +58,7 @@ public class simple
 	 */
 	public static void main(String[] args)
 	{	
-	    int lod = 4;
+	    int lod = 3;
 		int num = (1 << lod)+1;
 		float fractal[][][] = new float[num][num][3];
 		FractalTerrain height = new FractalTerrain(lod, 0.5f, 10);
@@ -141,7 +142,14 @@ public class simple
 		shape = new Shape(vertexData);
 		sceneManager.addShape(shape);
 		Camera camera = sceneManager.getCamera();
-		camera.setCenterOfProjection(new Vector3f(0,1,5));
+		Frustum frustum = sceneManager.getFrustum();
+		camera.setCenterOfProjection(new Vector3f(-5,20,20));
+        camera.setLookAtPoint(new Vector3f(-5,0,0));
+        camera.setUpVector(new Vector3f(0,1,0));
+        frustum.setAspectRatio(1);
+        frustum.setFarPlane(100);
+        frustum.setNearPlane(1);
+        frustum.setVertFOV(60);
 		
 
 		// Make a render panel. The init function of the renderPanel

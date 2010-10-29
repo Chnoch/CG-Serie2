@@ -81,10 +81,10 @@ public class Frustum {
     private void updateFrustum() {
         final float DEG2RAD = 3.14159265f / 180;
     	float temp = (float) (1 / 
-    			(aspectRatio * Math.tan(vertFOV / 2)));
-        this.projectionMatrix.setM00(-temp);
-        temp = (float) (1 / Math.tan(vertFOV / 2));
-        this.projectionMatrix.setM11(-temp);
+    			(aspectRatio * Math.tan(vertFOV*DEG2RAD / 2)));
+        this.projectionMatrix.setM00(temp);
+        temp = (float) (1 / Math.tan(vertFOV*DEG2RAD / 2));
+        this.projectionMatrix.setM11(temp);
         temp = (nearPlane + farPlane)
         / (nearPlane - farPlane);
         this.projectionMatrix.setM22(temp);
